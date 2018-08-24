@@ -309,7 +309,6 @@ def bookAPI(isbn):
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
                        params = {"key": "RVO4B4rG7LVt41u4gYyw1g",
                                  "isbns": isbn})
-    return str(res.json())
     return jsonify(
         title = book.title,
         author = book.author,
