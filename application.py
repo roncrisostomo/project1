@@ -21,7 +21,11 @@ app.config['SECRET_KEY'] = 'testeretset'
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+# Prevent debugger from catching redirects
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
+# Prevent jsonify from sorting keys
+app.config['JSON_SORT_KEYS'] = False
+# Make URLs with trailing slashes equivalent to URL without the trailing slash
 app.url_map.strict_slashes = False
 Session(app)
 
