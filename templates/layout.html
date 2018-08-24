@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <div class="container">{% block header %}{% endblock %}</div>
+        <div class="jumbotron">
+            <div class="container">
+                <h4><a href="/bookSearch">Generic Book Review Website</a></h4>
+            </div>
+        </div>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

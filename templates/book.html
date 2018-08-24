@@ -1,0 +1,96 @@
+{% extends "layoutWithHeader.html" %}
+
+{% block title %}
+    Book Details
+{% endblock %}
+
+{% block body %}
+    <div>
+        <table class="bookTable" cellpadding="5">
+            <tr>
+                <td>Title</td>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <td>Published</td>
+                <td>{{ book.year }}</td>
+            </tr>
+            <tr>
+                <td>ISBN</td>
+                <td>{{ book.isbn }}</td>
+            </tr>
+            {% if ratingsCount >= 0 and averageRating >= 0: %}
+            <tr>
+                <td>Ratings on Goodreads</td>
+                <td>{{ ratingsCount }}</td>
+            </tr>
+            <tr>
+                <td>Ave. rating on Goodreads</td>
+                <td>{{ averageRating }}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    
+    <hr>
+    
+    <div>
+        <h4>Reviews</h4>
+        {# otherUserReviews: list of tuples of reviewer name, rating, and review #}
+        {% for otherUserReview in otherUserReviews: %}
+            <div class="card">
+                <div class="card-header">
+                    {{ otherUserReview[1] }} star{% if otherUserReview[1] != 1: %}s{% endif %}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{ otherUserReview[2] }}</p>
+                        <footer class="blockquote-footer">{{ otherUserReview[0] }}</footer>
+                    </blockquote>
+                </div>
+            </div>
+            <br>
+        {% else: %}
+            <p>No reviews from other users.</p>
+        {% endfor %}
+    </div>
+    
+    <form action="{{ url_for('submitReview') }}" method="post">
+        <h4>Leave a review</h4>
+        
+        <div class="form-group row dropdown show">
+            {% set selectedOption = curUserReview[0] %}
+            <select class="form-control" name="rating" value={{ selectedOption }}>
+                {% for i in range(6): %}
+                    {% set optionText = i %}
+                    {% if i == 0: %}
+                        {% set optionText = "Select a rating" %}
+                    {% endif %}
+                    {% set selected = "" %}
+                    {% if i == selectedOption: %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value={{ i }} {{ selected }}>{{ optionText }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="review" class="col-sm-1 col-form-label">Review</label>
+            <textarea class="form-control" rows="5" name="review"
+                placeholder="Your review">{{ curUserReview[1] }}</textarea>
+        </div>
+
+        <input type="hidden" name="isbn" value="{{ book.isbn }}">
+
+        <div class="form-group">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+
+{% endblock %}

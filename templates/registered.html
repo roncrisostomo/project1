@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Success!
+{% endblock %}
+
+{% block body %}
+    <h2>Registration successful</h2>
+    
+    <form action="{{ url_for('bookSearch') }}" method="post">
+        
+        <div class="form-group">
+            <br>
+            <h5>Proceed to book review</h5>
+            <button class="btn btn-primary">Enter</button>
+        </div>
+        
+    </form>
+    
+{% endblock %}

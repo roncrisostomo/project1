@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block header %}
+    <br>
+    
+    <p>Hello, {{ userName }}</p>
+    
+    <form action="{{ url_for('logout') }}" method="post">
+        <div class="form-group">
+            <button class="btn btn-primary">Log out</button>
+        </div>
+    </form>
+    
+    <hr>
+{% endblock %}
